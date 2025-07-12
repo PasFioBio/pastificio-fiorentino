@@ -5,51 +5,42 @@
       pageLanguage: 'it',
       layout: google.translate.TranslateElement.InlineLayout.SIMPLE
     }, 'google_translate_element');
-  }</script><script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script><script>function setCookie(name, value, days) {
-      var expires = "";
-      if (days) {
-         var date = new Date();
-         date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-         expires = "; expires=" + date.toUTCString();
+  }
+
+  // Rimuove lingue non desiderate dopo il caricamento
+  function limitLanguages() {
+    const observer = new MutationObserver(() => {
+      const menuItems = document.querySelectorAll('.goog-te-menu2-item span.text');
+      const allowed = ['English', 'French', 'German', 'Spanish'];
+      menuItems.forEach(item => {
+        if (!allowed.includes(item.innerText)) {
+          item.parentElement.parentElement.style.display = 'none';
+        }
+      });
+    });
+
+    const menu = document.querySelector('.goog-te-menu-frame');
+    if (menu) {
+      const iframe = menu.contentDocument || menu.contentWindow.document;
+      observer.observe(iframe, { childList: true, subtree: true });
+    }
+  }
+
+  // Hook sul click del selettore
+  document.addEventListener('DOMContentLoaded', function () {
+    setTimeout(() => {
+      const googleTranslateScript = document.createElement('script');
+      googleTranslateScript.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+      document.head.appendChild(googleTranslateScript);
+    }, 100);
+
+    // Hook per intercettare il click sul selettore e poi nascondere
+    document.addEventListener('click', function (e) {
+      if (e.target.closest('#google_translate_element')) {
+        setTimeout(limitLanguages, 500);
       }
-      document.cookie = name + "=" + (value || "") + expires + "; path=/";
-   }
-
-   function getCookie(name) {
-      var nameEQ = name + "=";
-      var ca = document.cookie.split(';');
-      for (var i = 0; i < ca.length; i++) {
-         var c = ca[i];
-         while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-         if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-      }
-      return null;
-   }
-
-   function saveSelectedLanguage() {
-      var interval = setInterval(function () {
-         var sel = document.querySelector('#google_translate_element select');
-         if (sel) {
-            sel.addEventListener('change', function () {
-               var lang = sel.value;
-               setCookie('googtrans', '/it/' + lang, 7);
-            });
-            clearInterval(interval);
-         }
-      }, 500);
-   }
-
-   function applyLanguageFromCookie() {
-      var lang = getCookie('googtrans');
-      if (lang && lang !== '/it/it') {
-         document.cookie = "googtrans=" + lang + "; path=/";
-      }
-   }
-
-   document.addEventListener('DOMContentLoaded', function () {
-      applyLanguageFromCookie();
-      saveSelectedLanguage();
-   });</script></head><body class="tags-template"><header class="header" id="js-header" style="position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 9999;"><div id="google_translate_element" style="border: 1px solid #ccc; background-color: #fff; padding: 4px 8px; border-radius: 5px; font-size: 0.9em; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"></div></div><a href="https://PasFioBio.github.io/pastificio-fiorentino/" class="logo"><img src="https://PasFioBio.github.io/pastificio-fiorentino/media/website/PF_APdC_piccolo.jpg" alt="Pastificio Fiorentino" width="434" height="198"></a><nav class="navbar js-navbar"><button class="navbar__toggle js-toggle" aria-label="Menu"><span class="navbar__toggle-box"><span class="navbar__toggle-inner">Menu</span></span></button><ul class="navbar__menu"><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/" target="_self">Home</a></li><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/chi-siamo.html" target="_self">Chi siamo</a></li><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/il-pastificio.html" target="_self">Il Pastificio</a></li><li class="has-submenu"><a href="https://PasFioBio.github.io/pastificio-fiorentino/i-nostri-marchi.html" target="_self" aria-haspopup="true">I nostri marchi</a><ul class="navbar__submenu level-2" aria-hidden="true"><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/i-nostri-marchi.html" target="_self">Panoramica</a></li><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/pastificio-fiorentino-marchio.html" target="_self">Pastificio Fiorentino</a></li><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/antico-podere-del-castellacci-il-marchio.html" target="_self">Antico Podere del Castellacci</a></li></ul></li><li class="has-submenu"><a href="https://PasFioBio.github.io/pastificio-fiorentino/i-nostri-marchi.html" target="_self" aria-haspopup="true">I nostri prodotti</a><ul class="navbar__submenu level-2" aria-hidden="true"><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/prodotti-pf.html" target="_self">Pastificio Fiorentino</a></li></ul></li></ul></nav></header><main class="page page--tags"><div class="wrapper"><div class="hero"><h1>Collection of all tags <sup>(0)</sup></h1></div><ul class="l-grid l-grid--3"></ul></div></main><footer class="footer"><div class="footer__social"><a href="https://www.facebook.com/PastificioFiorentinoBio/" aria-label="Facebook" class="facebook"><svg><use xlink:href="https://PasFioBio.github.io/pastificio-fiorentino/assets/svg/svg-map.svg#facebook"/></svg> </a><a href="https://www.instagram.com/pastificiofiorentinobio/" aria-label="Instagram" class="instagram"><svg><use xlink:href="https://PasFioBio.github.io/pastificio-fiorentino/assets/svg/svg-map.svg#instagram"/></svg></a></div><div class="footer__copyright">Powered by Publii</div></footer><script>window.publiiThemeMenuConfig = {    
+    });
+  });</script></head><body class="tags-template"><header class="header" id="js-header" style="position: relative;"><div style="position: absolute; top: 10px; left: 10px; z-index: 9999;"><div id="google_translate_element" style="border: 1px solid #ccc; background-color: #fff; padding: 4px 8px; border-radius: 5px; font-size: 0.9em; box-shadow: 0 2px 5px rgba(0,0,0,0.1);"></div></div><a href="https://PasFioBio.github.io/pastificio-fiorentino/" class="logo"><img src="https://PasFioBio.github.io/pastificio-fiorentino/media/website/PF_APdC_piccolo.jpg" alt="Pastificio Fiorentino" width="434" height="198"></a><nav class="navbar js-navbar"><button class="navbar__toggle js-toggle" aria-label="Menu"><span class="navbar__toggle-box"><span class="navbar__toggle-inner">Menu</span></span></button><ul class="navbar__menu"><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/" target="_self">Home</a></li><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/chi-siamo.html" target="_self">Chi siamo</a></li><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/il-pastificio.html" target="_self">Il Pastificio</a></li><li class="has-submenu"><a href="https://PasFioBio.github.io/pastificio-fiorentino/i-nostri-marchi.html" target="_self" aria-haspopup="true">I nostri marchi</a><ul class="navbar__submenu level-2" aria-hidden="true"><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/i-nostri-marchi.html" target="_self">Panoramica</a></li><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/pastificio-fiorentino-marchio.html" target="_self">Pastificio Fiorentino</a></li><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/antico-podere-del-castellacci-il-marchio.html" target="_self">Antico Podere del Castellacci</a></li></ul></li><li class="has-submenu"><a href="https://PasFioBio.github.io/pastificio-fiorentino/i-nostri-marchi.html" target="_self" aria-haspopup="true">I nostri prodotti</a><ul class="navbar__submenu level-2" aria-hidden="true"><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/prodotti-pf.html" target="_self">Pastificio Fiorentino</a></li></ul></li></ul></nav></header><main class="page page--tags"><div class="wrapper"><div class="hero"><h1>Collection of all tags <sup>(0)</sup></h1></div><ul class="l-grid l-grid--3"></ul></div></main><footer class="footer"><div class="footer__social"><a href="https://www.facebook.com/PastificioFiorentinoBio/" aria-label="Facebook" class="facebook"><svg><use xlink:href="https://PasFioBio.github.io/pastificio-fiorentino/assets/svg/svg-map.svg#facebook"/></svg> </a><a href="https://www.instagram.com/pastificiofiorentinobio/" aria-label="Instagram" class="instagram"><svg><use xlink:href="https://PasFioBio.github.io/pastificio-fiorentino/assets/svg/svg-map.svg#instagram"/></svg></a></div><div class="footer__copyright">Powered by Publii</div></footer><script>window.publiiThemeMenuConfig = {    
       mobileMenuMode: 'sidebar',
       animationSpeed: 300,
       submenuWidth: 'auto',
