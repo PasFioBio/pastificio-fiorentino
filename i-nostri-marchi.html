@@ -3,44 +3,46 @@
                 }</style></noscript><script type="text/javascript">function googleTranslateElementInit() {
     new google.translate.TranslateElement({
       pageLanguage: 'it',
-      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+      includedLanguages: 'en,fr,de,es',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+      autoDisplay: false
     }, 'google_translate_element');
   }
 
-  // Rimuove lingue non desiderate dopo il caricamento
-  function limitLanguages() {
-    const observer = new MutationObserver(() => {
-      const menuItems = document.querySelectorAll('.goog-te-menu2-item span.text');
-      const allowed = ['English', 'French', 'German', 'Spanish'];
-      menuItems.forEach(item => {
-        if (!allowed.includes(item.innerText)) {
-          item.parentElement.parentElement.style.display = 'none';
-        }
-      });
-    });
+  function saveSelectedLang(langCode) {
+    localStorage.setItem('selectedLang', langCode);
+  }
 
-    const menu = document.querySelector('.goog-te-menu-frame');
-    if (menu) {
-      const iframe = menu.contentDocument || menu.contentWindow.document;
-      observer.observe(iframe, { childList: true, subtree: true });
+  function applySavedLang() {
+    const lang = localStorage.getItem('selectedLang');
+    if (lang) {
+      const select = document.querySelector('.goog-te-combo');
+      if (select) {
+        select.value = lang;
+        select.dispatchEvent(new Event('change'));
+      }
     }
   }
 
-  // Hook sul click del selettore
-  document.addEventListener('DOMContentLoaded', function () {
-    setTimeout(() => {
-      const googleTranslateScript = document.createElement('script');
-      googleTranslateScript.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
-      document.head.appendChild(googleTranslateScript);
-    }, 100);
+  document.addEventListener("DOMContentLoaded", function () {
+    const gtScript = document.createElement("script");
+    gtScript.type = "text/javascript";
+    gtScript.src = "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+    document.head.appendChild(gtScript);
 
-    // Hook per intercettare il click sul selettore e poi nascondere
-    document.addEventListener('click', function (e) {
-      if (e.target.closest('#google_translate_element')) {
-        setTimeout(limitLanguages, 500);
+    let tries = 0;
+    const interval = setInterval(() => {
+      applySavedLang();
+      tries++;
+      if (tries > 10) clearInterval(interval);
+    }, 500);
+
+    document.body.addEventListener('change', function (e) {
+      if (e.target.classList.contains('goog-te-combo')) {
+        saveSelectedLang(e.target.value);
       }
     });
-  });</script></head><body class="page-template"><div id="google_translate_container" style="position: absolute; top: 10px; left: 10px; z-index: 9999;"><div id="google_translate_element" style="background-color: #fff; border-radius: 6px; padding: 4px 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 0.9em; border: 1px solid #ddd;"></div></div><header class="header" id="js-header" style="position: relative;"><a href="https://PasFioBio.github.io/pastificio-fiorentino/" class="logo"><img src="https://PasFioBio.github.io/pastificio-fiorentino/media/website/PF_APdC_piccolo.jpg" alt="Pastificio Fiorentino" width="434" height="198"></a><nav class="navbar js-navbar"><button class="navbar__toggle js-toggle" aria-label="Menu"><span class="navbar__toggle-box"><span class="navbar__toggle-inner">Menu</span></span></button><ul class="navbar__menu"><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/" target="_self">Home</a></li><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/chi-siamo.html" target="_self">Chi siamo</a></li><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/il-pastificio.html" target="_self">Il Pastificio</a></li><li class="active-parent has-submenu"><a href="https://PasFioBio.github.io/pastificio-fiorentino/i-nostri-marchi.html" target="_self" aria-haspopup="true">I nostri marchi</a><ul class="navbar__submenu level-2" aria-hidden="true"><li class="active"><a href="https://PasFioBio.github.io/pastificio-fiorentino/i-nostri-marchi.html" target="_self">Panoramica</a></li><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/pastificio-fiorentino-marchio.html" target="_self">Pastificio Fiorentino</a></li><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/antico-podere-del-castellacci-il-marchio.html" target="_self">Antico Podere del Castellacci</a></li></ul></li><li class="active has-submenu"><a href="https://PasFioBio.github.io/pastificio-fiorentino/i-nostri-marchi.html" target="_self" aria-haspopup="true">I nostri prodotti</a><ul class="navbar__submenu level-2" aria-hidden="true"><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/prodotti-pf.html" target="_self">Pastificio Fiorentino</a></li></ul></li></ul></nav></header><main class="page"><div class="wrapper"><article class="content"><header class="content__header"><h1 class="content__title">I nostri marchi</h1></header><figure class="content__featured-image"><img src="https://PasFioBio.github.io/pastificio-fiorentino/media/posts/4/Marchi.webp" srcset="https://PasFioBio.github.io/pastificio-fiorentino/media/posts/4/responsive/Marchi-xs.webp 300w, https://PasFioBio.github.io/pastificio-fiorentino/media/posts/4/responsive/Marchi-sm.webp 480w, https://PasFioBio.github.io/pastificio-fiorentino/media/posts/4/responsive/Marchi-md.webp 768w, https://PasFioBio.github.io/pastificio-fiorentino/media/posts/4/responsive/Marchi-lg.webp 1200w" sizes="(min-width: 56.25em) 100vw, (min-width: 37.5em) 50vw, 100vw" loading="eager" height="532" width="1206" alt=""></figure><div class="content__inner"><div class="content__entry"><h2>Marchi e Prodotti</h2><p>Nel nostro pastificio nascono due marchi distinti ma complementari: <strong>Pastificio Fiorentino</strong> e <strong>Antico Podere del Castellacci</strong>.<br>Entrambi esprimono l’eccellenza della pasta biologica, realizzata con attenzione alla materia prima, tecniche artigianali e un forte legame con il territorio toscano.</p><h3>Tradizione e Qualità Artigianale</h3><p>Produciamo pasta con metodi che preservano i nutrienti naturali degli ingredienti:</p><ul><li>farine ottenute anche con <strong>macinazione a pietra</strong>, per conservare vitamine e sali minerali</li><li><strong>trafilatura al bronzo</strong>, che dona alla pasta una superficie ruvida e porosa</li><li><strong>essiccazione lenta a basse temperature</strong>, per mantenere intatti gusto e valori nutrizionali</li></ul><p>Utilizziamo materie prime coltivate nella nostra azienda agricola e in Toscana, oppure, quando necessario, selezioniamo solo ingredienti biologici italiani.</p><h3>Pastificio Fiorentino</h3><p><strong>L’eleganza della tradizione, l’eccellenza senza compromessi</strong></p><p>Un marchio pensato per chi cerca il meglio della pasta artigianale: raffinata, sostenibile, confezionata in eleganti sacchetti di carta riciclabile.<br>Ogni dettaglio — dalla produzione al packaging — è curato per offrire <strong>qualità superiore e stile fiorentino</strong>.</p><h3>Antico Podere del Castellacci</h3><p><strong>Una storia secolare, una pasta autentica e accessibile</strong></p><p>Il nome deriva dal <strong>Catasto Leopoldino</strong>, dove il nostro podere era già registrato nel Settecento.<br>Oggi rappresenta la <strong>fusione tra radici contadine e innovazione efficiente</strong>: una pasta biologica di alta qualità, con <strong>ottimo rapporto qualità-prezzo</strong> e <strong>packaging 100% riciclabile</strong>, pensata per essere buona, genuina e alla portata di tutti.</p></div></div></article></div></main><footer class="footer"><div class="footer__social"><a href="https://www.facebook.com/PastificioFiorentinoBio/" aria-label="Facebook" class="facebook"><svg><use xlink:href="https://PasFioBio.github.io/pastificio-fiorentino/assets/svg/svg-map.svg#facebook"/></svg> </a><a href="https://www.instagram.com/pastificiofiorentinobio/" aria-label="Instagram" class="instagram"><svg><use xlink:href="https://PasFioBio.github.io/pastificio-fiorentino/assets/svg/svg-map.svg#instagram"/></svg></a></div><div class="footer__copyright">Powered by Publii</div></footer><script>window.publiiThemeMenuConfig = {    
+  });</script></head><body class="page-template"><div id="google_translate_container" style="position:absolute; top:10px; left:10px; z-index:9999;"><div id="google_translate_element" style="background-color: #fff; border-radius: 6px; padding: 4px 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 0.9em; border: 1px solid #ddd;"></div></div><header class="header" id="js-header" style="position: relative;"><a href="https://PasFioBio.github.io/pastificio-fiorentino/" class="logo"><img src="https://PasFioBio.github.io/pastificio-fiorentino/media/website/PF_APdC_piccolo.jpg" alt="Pastificio Fiorentino" width="434" height="198"></a><nav class="navbar js-navbar"><button class="navbar__toggle js-toggle" aria-label="Menu"><span class="navbar__toggle-box"><span class="navbar__toggle-inner">Menu</span></span></button><ul class="navbar__menu"><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/" target="_self">Home</a></li><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/chi-siamo.html" target="_self">Chi siamo</a></li><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/il-pastificio.html" target="_self">Il Pastificio</a></li><li class="active-parent has-submenu"><a href="https://PasFioBio.github.io/pastificio-fiorentino/i-nostri-marchi.html" target="_self" aria-haspopup="true">I nostri marchi</a><ul class="navbar__submenu level-2" aria-hidden="true"><li class="active"><a href="https://PasFioBio.github.io/pastificio-fiorentino/i-nostri-marchi.html" target="_self">Panoramica</a></li><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/pastificio-fiorentino-marchio.html" target="_self">Pastificio Fiorentino</a></li><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/antico-podere-del-castellacci-il-marchio.html" target="_self">Antico Podere del Castellacci</a></li></ul></li><li class="active has-submenu"><a href="https://PasFioBio.github.io/pastificio-fiorentino/i-nostri-marchi.html" target="_self" aria-haspopup="true">I nostri prodotti</a><ul class="navbar__submenu level-2" aria-hidden="true"><li><a href="https://PasFioBio.github.io/pastificio-fiorentino/prodotti-pf.html" target="_self">Pastificio Fiorentino</a></li></ul></li></ul></nav></header><main class="page"><div class="wrapper"><article class="content"><header class="content__header"><h1 class="content__title">I nostri marchi</h1></header><figure class="content__featured-image"><img src="https://PasFioBio.github.io/pastificio-fiorentino/media/posts/4/Marchi.webp" srcset="https://PasFioBio.github.io/pastificio-fiorentino/media/posts/4/responsive/Marchi-xs.webp 300w, https://PasFioBio.github.io/pastificio-fiorentino/media/posts/4/responsive/Marchi-sm.webp 480w, https://PasFioBio.github.io/pastificio-fiorentino/media/posts/4/responsive/Marchi-md.webp 768w, https://PasFioBio.github.io/pastificio-fiorentino/media/posts/4/responsive/Marchi-lg.webp 1200w" sizes="(min-width: 56.25em) 100vw, (min-width: 37.5em) 50vw, 100vw" loading="eager" height="532" width="1206" alt=""></figure><div class="content__inner"><div class="content__entry"><h2>Marchi e Prodotti</h2><p>Nel nostro pastificio nascono due marchi distinti ma complementari: <strong>Pastificio Fiorentino</strong> e <strong>Antico Podere del Castellacci</strong>.<br>Entrambi esprimono l’eccellenza della pasta biologica, realizzata con attenzione alla materia prima, tecniche artigianali e un forte legame con il territorio toscano.</p><h3>Tradizione e Qualità Artigianale</h3><p>Produciamo pasta con metodi che preservano i nutrienti naturali degli ingredienti:</p><ul><li>farine ottenute anche con <strong>macinazione a pietra</strong>, per conservare vitamine e sali minerali</li><li><strong>trafilatura al bronzo</strong>, che dona alla pasta una superficie ruvida e porosa</li><li><strong>essiccazione lenta a basse temperature</strong>, per mantenere intatti gusto e valori nutrizionali</li></ul><p>Utilizziamo materie prime coltivate nella nostra azienda agricola e in Toscana, oppure, quando necessario, selezioniamo solo ingredienti biologici italiani.</p><h3>Pastificio Fiorentino</h3><p><strong>L’eleganza della tradizione, l’eccellenza senza compromessi</strong></p><p>Un marchio pensato per chi cerca il meglio della pasta artigianale: raffinata, sostenibile, confezionata in eleganti sacchetti di carta riciclabile.<br>Ogni dettaglio — dalla produzione al packaging — è curato per offrire <strong>qualità superiore e stile fiorentino</strong>.</p><h3>Antico Podere del Castellacci</h3><p><strong>Una storia secolare, una pasta autentica e accessibile</strong></p><p>Il nome deriva dal <strong>Catasto Leopoldino</strong>, dove il nostro podere era già registrato nel Settecento.<br>Oggi rappresenta la <strong>fusione tra radici contadine e innovazione efficiente</strong>: una pasta biologica di alta qualità, con <strong>ottimo rapporto qualità-prezzo</strong> e <strong>packaging 100% riciclabile</strong>, pensata per essere buona, genuina e alla portata di tutti.</p></div></div></article></div></main><footer class="footer"><div class="footer__social"><a href="https://www.facebook.com/PastificioFiorentinoBio/" aria-label="Facebook" class="facebook"><svg><use xlink:href="https://PasFioBio.github.io/pastificio-fiorentino/assets/svg/svg-map.svg#facebook"/></svg> </a><a href="https://www.instagram.com/pastificiofiorentinobio/" aria-label="Instagram" class="instagram"><svg><use xlink:href="https://PasFioBio.github.io/pastificio-fiorentino/assets/svg/svg-map.svg#instagram"/></svg></a></div><div class="footer__copyright">Powered by Publii</div></footer><script>window.publiiThemeMenuConfig = {    
       mobileMenuMode: 'sidebar',
       animationSpeed: 300,
       submenuWidth: 'auto',
