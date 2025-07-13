@@ -70,9 +70,11 @@
     "removeCredit": true
   });</script><script>// 3. Attivo i servizi
 
-if (typeof tarteaucitron !== "undefined") {
-  tarteaucitron.job.push('snipcart');
-}</script><script>window.publiiThemeMenuConfig = {    
+window.addEventListener('load', function () {
+  if (typeof tarteaucitron !== "undefined" && tarteaucitron.job) {
+    tarteaucitron.job.push('snipcart');
+  }
+});</script><script>window.publiiThemeMenuConfig = {    
       mobileMenuMode: 'sidebar',
       animationSpeed: 300,
       submenuWidth: 'auto',
