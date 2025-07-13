@@ -1,3 +1,2 @@
 User-agent: *
 Disallow:
-Sitemap: https://PasFioBio.github.io/pastificio-fiorentino/sitemap.xml
