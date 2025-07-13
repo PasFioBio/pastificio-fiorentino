@@ -55,17 +55,7 @@
     "fallback": function () {
         console.warn("Snipcart disattivato per mancanza consenso cookie");
     }
-};</script><script>tarteaucitron.init({
-    "privacyUrl": "/pastificio-fiorentino/privacy-e-cookie.html",
-    "orientation": "bottom",
-    "showAlertSmall": true,
-    "cookieslist": true,
-    "highPrivacy": true,
-    "AcceptAllCta": true,
-    "removeCredit": true
-  });
-
-  tarteaucitron.user.gtagUa = 'G-XXXXXXXXXX';
+};</script><script>tarteaucitron.user.gtagUa = 'G-XXXXXXXXXX';
   tarteaucitron.job.push('gtag');
 
   tarteaucitron.user.googlemapsKey = 'LA-TUA-CHIAVE-GOOGLE-MAPS';
@@ -79,7 +69,18 @@
   tarteaucitron.job.push('instagram');
 
   tarteaucitron.user.snipcartPublicApiKey = 'NWU2NTMwODctNDk0ZS00OGMxLWFjMjEtZTZiOTRiMDFlOTNlNjM4ODgwMjU4ODYxODc3MDYz';
-  tarteaucitron.job.push('snipcart');</script></footer><script>window.publiiThemeMenuConfig = {    
+  tarteaucitron.job.push('snipcart');
+
+
+  tarteaucitron.init({
+    "privacyUrl": "/pastificio-fiorentino/privacy-e-cookie.html",
+    "orientation": "bottom",
+    "showAlertSmall": true,
+    "cookieslist": true,
+    "highPrivacy": true,
+    "AcceptAllCta": true,
+    "removeCredit": true
+  });</script></footer><script>window.publiiThemeMenuConfig = {    
       mobileMenuMode: 'sidebar',
       animationSpeed: 300,
       submenuWidth: 'auto',
