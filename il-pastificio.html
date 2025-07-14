@@ -46,10 +46,48 @@
     snipcartDiv.hidden = true;
     snipcartDiv.setAttribute("data-api-key", tarteaucitron.user.snipcartPublicApiKey);
     document.body.appendChild(snipcartDiv);
-    tarteaucitron.addScript("https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.js", "", function() {
-    // Callback che garantisce il caricamento
-    console.log("Snipcart pronto");
-});
+
+// 1. Configurazione con fallback
+function loadSnipcart() {
+    // Prima verifichiamo che tarteaucitron esista
+    if (typeof tarteaucitron === 'undefined') {
+        console.error('tarteaucitron non è disponibile');
+        return;
+    }
+
+    // 2. Caricamento con doppio sistema di verifica
+    const snipcartLoaded = () => {
+        console.log('Snipcart pronto');
+        // Verifica aggiuntiva
+        if (typeof Snipcart !== 'undefined') {
+            console.log('Snipcart API disponibile', Snipcart);
+        } else {
+            console.warn('Snipcart non definito nonostante il caricamento');
+        }
+    };
+
+    // 3. Caricamento con timeout di sicurezza
+    const scriptUrl = 'https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.js';
+    const cssUrl = 'https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.css';
+    
+    // Prima carica il CSS (se necessario)
+    tarteaucitron.addScript(cssUrl, '', () => {
+        console.log('CSS Snipcart caricato');
+        
+        // Poi carica lo JS
+        tarteaucitron.addScript(scriptUrl, '', snipcartLoaded);
+        
+        // Timeout di sicurezza
+        setTimeout(() => {
+            if (typeof Snipcart === 'undefined') {
+                console.warn('Caricamento lento - forzato controllo');
+                snipcartLoaded();
+            }
+        }, 3000);
+    });
+}
+
+
   },
   fallback: function () {
     console.warn("Snipcart disattivato per mancanza consenso cookie");
