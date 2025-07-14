@@ -2,10 +2,10 @@
     "version": "https://jsonfeed.org/version/1",
     "title": "Pastificio Fiorentino",
     "description": "",
-    "home_page_url": "https://PasFioBio.github.io/pastificio-fiorentino",
-    "feed_url": "https://PasFioBio.github.io/pastificio-fiorentino/feed.json",
+    "home_page_url": "https://www.pastificiofiorentino.it",
+    "feed_url": "https://www.pastificiofiorentino.it/feed.json",
     "user_comment": "",
-    "icon": "https://PasFioBio.github.io/pastificio-fiorentino/media/website/PF_APdC_piccolo.jpg",
+    "icon": "https://www.pastificiofiorentino.it/media/website/PF_APdC_piccolo.jpg",
     "author": {
         "name": "Az. Agricola Bio Floriddia C."
     },
