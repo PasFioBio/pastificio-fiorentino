@@ -55,10 +55,7 @@
     "fallback": function () {
         console.warn("Snipcart disattivato per mancanza consenso cookie");
     }
-};</script><script>// 1. Imposto tutte le chiavi
-
-
-  tarteaucitron.user.snipcartPublicApiKey = 'NWU2NTMwODctNDk0ZS00OGMxLWFjMjEtZTZiOTRiMDFlOTNlNjM4ODgwMjU4ODYxODc3MDYz';</script><script>// 2. Inizializzo tarteaucitron
+};</script><script>// 2. Inizializzo tarteaucitron
 
   tarteaucitron.init({
     "privacyUrl": "/pastificio-fiorentino/privacy-e-cookie.html",
@@ -70,7 +67,7 @@
     "highPrivacy": false,
     "AcceptAllCta": true,
     "removeCredit": true
-  });</script><script>// 3. Attivo i servizi
+  });</script>// 1. Imposto tutte le chiavi<script>tarteaucitron.user.snipcartPublicApiKey = 'NWU2NTMwODctNDk0ZS00OGMxLWFjMjEtZTZiOTRiMDFlOTNlNjM4ODgwMjU4ODYxODc3MDYz';</script><script>// 3. Attivo i servizi
 
 window.addEventListener('load', function () {
   if (typeof tarteaucitron !== "undefined" && tarteaucitron.job) {
