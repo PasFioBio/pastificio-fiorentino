@@ -39,25 +39,19 @@ tarteaucitron.user.snipcartPublicApiKey = 'NWU2NTMwODctNDk0ZS00OGMxLWFjMjEtZTZiO
 
 // 2. Configurazione servizio Snipcart
 tarteaucitron.services.snipcart = {
-    "key": "snipcart",
-    "type": "other",
-    "name": "Snipcart",
-    "needConsent": true,
-    "cookies": ["snipcart", "snipcart_order_token"],
-    "js": function () {
-        if (tarteaucitron.user.snipcartPublicApiKey === undefined) return;
+    key: "snipcart",
+    type: "other",
+    name: "Snipcart",
+    needConsent: true,
+    cookies: ["snipcart", "snipcart_order_token"],
+    js: function () {
         var snipcartDiv = document.createElement("div");
-        snipcartDiv.setAttribute("hidden", true);
-        snipcartDiv.setAttribute("id", "snipcart");
+        snipcartDiv.id = "snipcart";
+        snipcartDiv.hidden = true;
         snipcartDiv.setAttribute("data-api-key", tarteaucitron.user.snipcartPublicApiKey);
-        snipcartDiv.setAttribute("data-config-modal-style", "side");
         document.body.appendChild(snipcartDiv);
-
+        
         tarteaucitron.addScript('https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.js');
-        tarteaucitron.addScript('https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.css');
-    },
-    "fallback": function () {
-        console.warn("Snipcart disattivato per mancanza consenso cookie");
     }
 };
 
