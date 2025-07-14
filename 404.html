@@ -46,8 +46,10 @@
     snipcartDiv.hidden = true;
     snipcartDiv.setAttribute("data-api-key", tarteaucitron.user.snipcartPublicApiKey);
     document.body.appendChild(snipcartDiv);
-    tarteaucitron.addScript("https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.js");
-    tarteaucitron.addScript("https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.css");
+    tarteaucitron.addScript("https://cdn.snipcart.com/themes/v3.3.0/default/snipcart.js", "", function() {
+    // Callback che garantisce il caricamento
+    console.log("Snipcart pronto");
+});
   },
   fallback: function () {
     console.warn("Snipcart disattivato per mancanza consenso cookie");
